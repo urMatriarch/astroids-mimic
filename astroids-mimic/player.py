@@ -20,7 +20,10 @@ class Player(CircleShape):
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
-        print(self.rotation)
+
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_MOVE_SPEED * dt
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -29,6 +32,11 @@ class Player(CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
+
 
 #test_player = Player(3, 4)
 #print(f"Stats are as follows: Position = {test_player.position}, radius = {test_player.radius}, rotation = {test_player.rotation}. ")
